@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-app-deployment
+spec:
+  selector:
+    matchLabels:
+      app: course-app
+  template:
+    metadata:
+      labels:
+        app: course-app
+    spec:
+      containers:
+        - name: course-app-container
+          image: vladyslavvoitenko/course-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_STORE
+              value: "redis"

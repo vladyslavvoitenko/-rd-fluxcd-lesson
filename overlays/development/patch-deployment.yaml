@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-app-deployment
+spec:
+  replicas: 1 #replica-change
+  template:
+    spec:
+      containers:
+      - name: course-app-container
+        env:
+        - name: APP_REDIS_URL
+          value: "redis://dragonfly-dev:6379"

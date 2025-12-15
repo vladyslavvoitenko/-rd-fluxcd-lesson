@@ -1,0 +1,6 @@
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: dragonfly-dev
+spec:
+  replicas: 1
