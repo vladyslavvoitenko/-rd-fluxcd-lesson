@@ -1,0 +1,7 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: course-app-ingress
+spec:
+  rules:
+  - host: prod.course-app.local # host for prod

@@ -1,0 +1,41 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app-dev
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./overlays/development
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: development
+  dependsOn:
+    - name: app-dev-namespace
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app-dev-namespace
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./overlays/development
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  # filter namespace only
+  postBuild:
+    substitute: {}
+    substituteFrom: []
+  wait: true
+  force: false
+  retryInterval: 2m0s
+  timeout: 1m0s
+  validation: client
+  preApply:
+  - apiVersion: v1
+    kind: Namespace
+    name: development

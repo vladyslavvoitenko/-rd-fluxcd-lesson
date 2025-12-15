@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-app-deployment
+spec:
+  replicas: 3 # replica-changes
+  template:
+    spec:
+      containers:
+      - name: course-app-container
+        # add a resourse limits
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        env:
+          # add a URL for Dragonfly prod
+          - name: APP_REDIS_URL
+            value: "redis://dragonfly-prod:6379"
